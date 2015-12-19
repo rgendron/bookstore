@@ -1,0 +1,18 @@
+  520  rails new bookstore -T
+  521  cd bookstore/
+  522  git init
+  523  git add -A
+  524  git commit -m "Initial commit"
+  526  bundle install
+  528  rails generate rspec:install
+  505  spring stop
+  506  rails generate rspec:install
+  507  rails g model Publisher name
+  508  rails g model Author first_name last_name
+  509  rails g model BookFormatType name physical:boolean
+  510  rails g model BookFormat book:references book_format_type:references
+  511  rails g model BookReview book:references rating:int1
+
+  rake db:migrate
+  rails g model Book title publisher:references author:references
+  add .rspec to gitignore
