@@ -7,6 +7,7 @@ RSpec.describe BookFormatType, type: :model do
   end
 
   describe "validations" do
+    subject { BookFormatType.new(physical: false) }
     it { should validate_presence_of(:name) }
     it { should validate_uniqueness_of(:name) }
     it { should allow_values(true,false).for(:physical) }
