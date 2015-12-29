@@ -13,16 +13,11 @@ RSpec.describe BookFormatType, type: :model do
     it { should allow_values(true,false).for(:physical) }
   end
 
-
   describe "scopes" do
     before(:each) do
-      create(:book_format_type, name: "Physical 1", physical: true)
-      create(:book_format_type, name: "Physical 2", physical: true)
-      create(:book_format_type, name: "Physical 3", physical: true)
-      create(:book_format_type, name: "Electronic 1", physical: false)
-      create(:book_format_type, name: "Electronic 2", physical: false)
+      create_list(:book_format_type, 3, :physical)
+      create_list(:book_format_type, 2, :electronic)
     end
-
 
     describe ".physical" do
       it 'should return only physical format types' do
@@ -34,7 +29,6 @@ RSpec.describe BookFormatType, type: :model do
       end
     end
 
-
     describe '.electronic' do
       it 'should return only electronic format types' do
         expect(BookFormatType.electronic.all?(&:electronic?)).to be true
@@ -44,19 +38,17 @@ RSpec.describe BookFormatType, type: :model do
         expect(BookFormatType.electronic.count).to eq 2
       end
     end
-
   end
 
   describe "#to_s" do
     it "should be the right string" do
-      format_type = create(:book_format_type)
-      expect(format_type.to_s).to eq format_type.name
+      expect(subject.to_s).to eq subject.name
     end
   end
 
   describe "#electronic?" do
-    let(:physical) { BookFormatType.create(name: "Physical", physical: true) }
-    let(:electronic) { BookFormatType.create(name: "Electronic", physical: false) }
+    let(:physical) { create :book_format_type, :physical }
+    let(:electronic) { create :book_format_type, :electronic }
 
     it "should return true for electronic books" do
       expect(electronic.electronic?).to be true

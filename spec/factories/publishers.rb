@@ -1,6 +1,8 @@
 FactoryGirl.define do
-  factory :publisher do
-    name "MyString"
+  sequence :publisher_name do |n|
+    "Publisher #{n}"
   end
-
+  factory :publisher do
+    name { generate :publisher_name}
+  end
 end
